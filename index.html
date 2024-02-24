@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    html{
+        background: #333;
+    }
+</style>
+<body>
+
+</body>
+<script>
+
+    setTimeout(() => {
+        msgbox('Sucesso', 'Layout 0', 4000, 0);
+        setTimeout(() => {
+            msgbox('Sucesso', 'Layout 1', 4000, 1);
+            setTimeout(() => {
+                msgbox('Sucesso', 'Layout 2', 4000, 2);
+                setTimeout(() => {
+                    msgbox('Sucesso', 'Layout 3', 4000, 3);
+                    setTimeout(() => {
+                        msgbox('Erro', 'Layout 0', 4000, 0, 'red');
+                        setTimeout(() => {
+                            msgbox('Erro', 'Layout 1', 4000, 1, 'red');
+                            setTimeout(() => {
+                                msgbox('Erro', 'Layout 2', 4000, 2, 'red');
+                                setTimeout(() => {
+                                    msgbox('Erro', 'Layout 3', 4000, 3, 'red');
+                                    setTimeout(() => {
+                                        msgbox('Alerta', 'Layout 0', 4000, 0, 'yellow', 'black');
+                                        setTimeout(() => {
+                                            msgbox('Alerta', 'Layout 1', 4000, 1, 'yellow', 'black');
+                                            setTimeout(() => {
+                                                msgbox('Alerta', 'Layout 2', 4000, 2, 'yellow', 'black');
+                                                setTimeout(() => {
+                                                    msgbox('Alerta', 'Layout 3', 4000, 3, 'yellow', 'black');
+                                                    setTimeout(() => {
+
+                                                    }, 4000);
+                                                }, 4000);
+                                            }, 4000);
+                                        }, 4000);
+                                    }, 4000);
+                                }, 4000);
+                            }, 4000);
+                        }, 4000);
+                    }, 4000);
+                }, 4000);
+            }, 4000);
+        }, 4000);
+    }, 1000);
+
+
+    function msgbox(titulo, texto, tempo = 1000, layout = 0, corFundo = 'green', corfonte = 'aliceblue', borderradius = true, textoCentralizado = false) {
+        var topo = 10;
+        var opacidade = 0.0;
+        const rect = document.createElement('div');
+        rect.style.position = 'fixed';
+        rect.style.zIndex = '10000';
+        rect.style.minWidth = '25%';
+        rect.style.maxWidth = '50%';
+
+        //rect.style.height = '100px';
+        if (borderradius) {
+            rect.style.borderRadius = '10px';
+        }
+        rect.style.backgroundColor = corFundo;
+
+        switch (layout) {
+            case 0:
+                rect.style.right = '10px';
+                topo = 10;
+                rect.style.top = topo + 'px';
+                if (textoCentralizado) { rect.style.textAlign = 'center'; }
+                else { rect.style.textAlign = 'right'; }
+                break;
+            case 1:
+                rect.style.left = '10px';
+                topo = 10;
+                rect.style.top = topo + 'px';
+                if (textoCentralizado) { rect.style.textAlign = 'center'; }
+                else { rect.style.textAlign = 'left'; }
+                break;
+            case 2:
+                rect.style.left = '10px';
+                topo = 10;
+                rect.style.bottom = topo + 'px';
+                if (textoCentralizado) { rect.style.textAlign = 'center'; }
+                else { rect.style.textAlign = 'left'; }
+                break;
+
+            case 3:
+                rect.style.right = '10px';
+                topo = 10;
+                rect.style.bottom = topo + 'px';
+                if (textoCentralizado) { rect.style.textAlign = 'center'; }
+                else { rect.style.textAlign = 'right'; }
+                break;
+            default:
+                rect.style.right = '10px';
+                topo = 10;
+                rect.style.top = topo + 'px';
+                if (textoCentralizado) { rect.style.textAlign = 'center'; }
+                else { rect.style.textAlign = 'right'; }
+                break;
+        }
+
+
+        rect.style.padding = '10px';
+        rect.style.opacity = opacidade;
+
+
+        const titlee = document.createElement('span');
+        titlee.innerHTML = titulo;
+        titlee.style.color = corfonte;
+
+        const alerta = document.createElement('span');
+        alerta.innerHTML = '<br>' + texto;
+        alerta.style.color = corfonte;
+
+
+        rect.appendChild(titlee);
+        rect.appendChild(alerta);
+        document.body.appendChild(rect);
+
+        var lp = setInterval(() => {
+            if (opacidade <= 0.9) {
+                opacidade += 0.002;
+                rect.style.opacity = opacidade;
+            }
+            else {
+                clearInterval(lp);
+                setTimeout(() => {
+                    var loop = setInterval(() => {
+                        if (topo !== window.innerHeight) {
+                            topo++;
+
+                            if (layout === 0 || layout === 1) { rect.style.top = topo + 'px'; }
+
+                            opacidade -= 0.002;
+                            rect.style.opacity = opacidade;
+                        }
+                        else {
+
+                            clearInterval(loop);
+                            rect.remove();
+                        }
+
+
+                    }, 1);
+                }, tempo);
+            }
+
+
+        }, 1);
+
+    }
+</script>
+
+</html>
